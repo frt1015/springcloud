@@ -1,0 +1,21 @@
+# 修改Ribbon的负载均衡算法
+myshop-user:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+server:
+  port: 9002
+spring:   # 服务名称
+  application:
+    name: myshop-web
+eureka:
+  client:
+    register-with-eureka: true # 作为客户端需要注册到Eureka
+    fetch-registry: true  # 作为客户端需要从Eureka获取注册信息
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka
+  instance:
+    # 优先使用该服务的IP地址注册到Eureka，在生产环境建议改为true
+    prefer-ip-address: true
+feign:   # 开启Hystrix支持
+  hystrix:
+    enabled: true
